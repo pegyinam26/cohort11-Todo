@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(TaskControllerTest.class)
+@WebMvcTest(TaskController.class)
 class TaskControllerTest {
 
     @Autowired
@@ -54,7 +54,7 @@ class TaskControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.title").value(matchesPattern("Learn about.*request/response")))
                 .andExpect(jsonPath("$.description").value(containsString("Learn how to")))
-                .andExpect(jsonPath("$.category.label").value("immediate"))
+                .andExpect(jsonPath("$.category.label").value("important"))
                 .andDo(print()
                 );
 
@@ -69,7 +69,7 @@ class TaskControllerTest {
                 "Learn about testing HTTP request/response",
                 "Learn how to use WebMvcTest",
                 false,
-                new Category("enablement"));
+                new Category("immediate"));
         newTask.setId(1L);
 
         when(taskService.saveTask(any(Task.class))).thenReturn(newTask);
